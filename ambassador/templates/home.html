@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {% if title  %}
+        <title>Ambassadors Wellness Centre {{ title }}</title>
+    {% else %}
+        <title>Ambassadors Wellness Centre </title>
+    {% endif  %}
+    
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Welcome to Ambassadors Wellness Centre</h1>
+    </div>
+
+    <div class="container">
+        <section id="about" class="content">
+            <h2>About Us</h2>
+            <p>Ambassadors Wellness Centre is dedicated to providing top-notch treatment and support for mental health and addiction recovery. Our expert team is here to guide you on your journey to wellness.</p>
+        </section>
+
+        <section id="services" class="content">
+            <h2>Our Services</h2>
+            <p>We offer a variety of services to meet your needs, including:</p>
+            <ul>
+                <li>Mental Health Treatment</li>
+                <li>Substance Abuse Programs</li>
+                <li>Individual and Group Therapy</li>
+                <li>Family Counseling</li>
+                <li>Holistic Therapies</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="cta">
+            <h2>Contact Us</h2>
+            <p>If you're ready to take the first step towards recovery, contact us today.</p>
+            <p>Phone: +25720233238</p>
+            <p>Email: info@ambassadorswellness.com</p>
+            <p>Address: Utawala Benedicta Satge</p>
+        </section>
+    </div>
+
+</body>
+{% endblock %}
+</html>

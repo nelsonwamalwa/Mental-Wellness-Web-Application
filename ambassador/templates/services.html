@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+   
+    {% if title  %}
+        <title>Ambassadors Wellness Centre {{ title }}</title>
+    {% else %}
+        <title>Ambassadors Wellness Centre </title>
+    {% endif  %}
+   
+</head>
+<body>
+
+    <div class="container">
+
+        <section id="services" class="content">
+            <h2>Our Services</h2>
+            <h3>Primary Mental Health Disorders We Treat</h3>
+            <p>We provide comprehensive treatment for a variety of primary mental health disorders including Anxiety, Depression, PTSD, Bipolar Disorder, OCD, and Schizophrenia.</p>
+
+            <h3>Substance Abuse Programs</h3>
+            <p>Our programs include detox treatments for alcohol, cocaine, heroin, meth, and prescription drugs. We also offer residential inpatient programs and various therapy options including CBT and DBT.</p>
+
+            <h3>Addiction Treatment Options</h3>
+            <p>Our industry-leading intensive outpatient and residential treatment facilities in Orange County offer evidence-based alcohol and drug treatment options for those hoping to achieve long-term sobriety.</p>
+            <p>We provide professional evaluation & medical screening, drug & alcohol detox programs, 24/7 supervision, behavioral therapy, and group counseling. We also offer life skills development to help patients reintegrate into society and prevent relapse.</p>
+        </section>
+
+        <section id="contact" class="cta">
+            <h2>Contact Us</h2>
+            <p>If you're ready to take the first step towards recovery, contact us today.</p>
+            <p>Phone: +25720233238</p>
+            <p>Email: info@ambassadorswellness.com</p>
+            <p>Address: Utawala Benedicta Satge</p>
+        </section>
+    </div>
+
+
+{% endblock %}
+</body>
+</html>
