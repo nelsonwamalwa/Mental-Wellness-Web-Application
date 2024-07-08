@@ -8,22 +8,21 @@
             <div class="media-body">
                 <div class="article-metadata">
                     <a class="mr-2" href="#">{{ post.author.username }}</a>
-                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    {% if current_user.is_authenticated and current_user.id == post.author.id %}
+                    <a href="{{ url_for('post.update_post', post_id=post.id) }}" class="btn btn-info btn-sm mr-1">Update</a>
+                    <form method="post" action="{{ url_for('post.delete_post', post_id=post.id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    {% endif %}
+                    <small class="text-muted ml-2">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 </div>
                 <h2 class="article-title">
                     <a href="{{ url_for('post.view_post', post_id=post.id) }}">{{ post.title }}</a>
                 </h2>
                 <p class="article-content">{{ post.content }}</p>
-                <div class="post-actions text-center">
-                    {% if current_user.is_authenticated %}
-                    <form method="post" action="{{ url_for('post.delete_post', post_id=post.id) }}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                    {% endif %}
-                    <div class="post-stats">
-                        <small class="text-muted">{{ post.likes|length }} Likes</small>
-                        <small class="text-muted">{{ post.comments|length }} Comments</small>
-                    </div>
+                <div class="post-stats">
+                    <small class="text-muted">{{ post.likes|length }} Likes</small>
+                    <small class="text-muted">{{ post.comments|length }} Comments</small>
                 </div>
             </div>
         </article>

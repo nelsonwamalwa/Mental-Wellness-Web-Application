@@ -1,5 +1,7 @@
 from datetime import datetime
+from flask import current_app
 from flask_login import UserMixin
+from itsdangerous import URLSafeTimedSerializer as Serializer, BadSignature, SignatureExpired
 from ambassador import db, login_manager  # Import from the top-level package
 
 class User(db.Model, UserMixin):
@@ -13,6 +15,19 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='author', lazy=True)
     likes = db.relationship('Like', backref='user', lazy=True)
 
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id})
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except (BadSignature, SignatureExpired):
+            return None
+        return User.query.get(user_id)
+
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
@@ -25,6 +40,21 @@ class Post(db.Model):
     approved = db.Column(db.Boolean, default=False)
     comments = db.relationship('Comment', backref='post', lazy=True)
     likes = db.relationship('Like', backref='post', lazy=True)
+
+    def like(self, user):
+        if not self.is_liked_by(user):
+            like = Like(user_id=user.id, post_id=self.id)
+            db.session.add(like)
+            db.session.commit()
+
+    def unlike(self, user):
+        like = Like.query.filter_by(user_id=user.id, post_id=self.id).first()
+        if like:
+            db.session.delete(like)
+            db.session.commit()
+
+    def is_liked_by(self, user):
+        return Like.query.filter_by(user_id=user.id, post_id=self.id).count() > 0
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"

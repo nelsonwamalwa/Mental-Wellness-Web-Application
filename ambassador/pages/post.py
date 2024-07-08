@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import current_user, login_required
 from ambassador import db
 from ambassador.forms import PostForm, CommentForm
-from ambassador.models import Post, Comment
+from ambassador.models import Post, Comment, Like
 from flask import Blueprint
 
 post = Blueprint('post', __name__)
@@ -64,8 +64,10 @@ def delete_post(post_id):
 @login_required
 def like_post(post_id):
     post = Post.query.get_or_404(post_id)
-    # Assuming there is a Post model method to like a post
-    post.like(current_user)
+    if post.is_liked_by(current_user):
+        post.unlike(current_user)
+    else:
+        post.like(current_user)
     db.session.commit()
     return redirect(url_for('post.view_post', post_id=post_id))
 
