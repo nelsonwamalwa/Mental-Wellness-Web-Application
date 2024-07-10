@@ -1,8 +1,10 @@
 services:
   - type: web
-    name: mental-wellness-web-application
+    name: mental-wellness-app
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn run:app"
-
-
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    plan: free
+    branches: 
+      only:
+        - main
