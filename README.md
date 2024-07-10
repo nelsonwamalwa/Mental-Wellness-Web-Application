@@ -191,10 +191,5 @@ server {
 
 Feel free to fork this repository and contribute by submitting a pull request. Please ensure your code adheres to the existing style and includes appropriate tests.
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
----
 
 For any questions or suggestions, please open an issue on GitHub or contact [wamalwanelson@gmail.com].
